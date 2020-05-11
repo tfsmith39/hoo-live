@@ -1,0 +1,31 @@
+{
+  "name": "hoo-live",
+  "version": "1.0.0",
+  "description": "A web app for livestream advocates to easily follow their favorite streamers on multiple platorms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tfsmith39/hoo-live.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Tim Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tfsmith39/hoo-live/issues"
+  },
+  "homepage": "https://github.com/tfsmith39/hoo-live#readme",
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "pg": "^8.1.0"
+  }
+}
