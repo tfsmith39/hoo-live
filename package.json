@@ -4,7 +4,13 @@
   "description": "A web app for livestream advocates to easily follow their favorite streamers on multiple platorms.",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon server"
+    "start": "run-p start:** server",
+    "start:app": "cd client && npm run start",
+    "production": "run-p production:** server",
+    "production:build": "cd client && npm run build",
+    "server": "nodemon server/index.js",
+    "dev": "pm2 startOrReload ecosystem.json --env development",
+    "prod": "pm2 startOrReload prod-ecosystem.json --env production"
   },
   "repository": {
     "type": "git",
@@ -21,14 +27,27 @@
   "homepage": "https://github.com/tfsmith39/hoo-live#readme",
   "devDependencies": {
     "concurrently": "^5.2.0",
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.14",
+    "@material-ui/icons": "^4.9.1",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
+    "chalk": "^4.0.0",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "history": "^4.10.1",
+    "npm-run-all": "^4.1.5",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-mixer": "^1.0.2",
+    "passport-twitch.js": "0.0.9",
     "pg": "^8.1.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.1",
     "request": "^2.88.2",
     "request-promise": "^4.2.5"
   }
