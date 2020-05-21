@@ -5,6 +5,7 @@ import GoogleIcon from "../res/google.png";
 import InstagramIcon from "../res/instagram.png";
 import SpotifyIcon from "../res/spotify.png";
 import TwitchIcon from "../res/twitch.png";
+import MixerIcon from "../res/mixer.png";
 
 export const data = [{
     img: AmazonIcon,
@@ -62,4 +63,10 @@ export const data = [{
     alt: "twitch-icon",
     color: "#5F3BAD",
     txt: "Login with Twitch"
+}, {
+    img: MixerIcon,
+    name: "mixer.js",
+    href: "auth/mixer",
+    alt: "mixer-icon",
+    txt: "Login with Mixer"
 }];
