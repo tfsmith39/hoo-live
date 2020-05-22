@@ -8,8 +8,8 @@ const TwitchStrategy = require('passport-twitch.js').Strategy;
 const MixerStrategy = require('passport-mixer').Strategy;
 const keys = require('../config');
 const chalk = require('chalk');
+
 let user = {};
-//const bodyParser = require('body-parser');
 
 passport.serializeUser((user, cb) => {
     cb(null, user);
@@ -59,7 +59,7 @@ passport.use(new TwitchStrategy({
 passport.use(new MixerStrategy({
     clientID: keys.MIXER.clientID,
     clientSecret: keys.MIXER.clientSecret,
-    callbackURL: "http://127.0.0.1:3000/auth/mixer/callback"
+    callbackURL: "/auth/mixer/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ mixerId: profile.id }, function (err, user) {
@@ -114,30 +114,30 @@ app.get("/auth/logout", (req, res) => {
     res.redirect("/");
 });
 
-const PORT = 5000;
-app.listen(PORT);
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, '../client/build')));
+    app.get('/', function(req, res) {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
+}
 
-/*
-var db = require('./database');
+if (process.env.NODE_ENV === "production") {
+    const privateKey = fs.readFileSync('/etc/letsencrypt/live/learnpassportjs.com/privkey.pem', 'utf8');
+    const certificate = fs.readFileSync('/etc/letsencrypt/live/learnpassportjs.com/cert.pem', 'utf8');
+    const ca = fs.readFileSync('/etc/letsencrypt/live/learnpassportjs.com/chain.pem', 'utf8');
+    const credentials = {
+        key: privateKey,
+        cert: certificate,
+        ca: ca
+    };
 
-const ENV = process.env.NODE_ENV;
-const PORT = process.env.PORT || 5000;
-
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-app.use(bodyParser.json());
-
-app.use('/api/cites', require('./api/cites'));
-
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}...`);
-});
-
-db.query('SELECT NOW()', (err, res) => {
-    if (err.error)
-      return console.log(err.error);
-    console.log(`PostgreSQL connected: ${res[0].now}.`);
-});
-module.exports = app;
-*/
+    https.createServer(credentials, app).listen(443, () => {
+        console.log('HTTPS Server running on port 443');
+    });
+    http.createServer(function (req, res) {
+        res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+        res.end();
+    }).listen(80);
+} else if (process.env.NODE_ENV === "development") {
+    app.listen(5000);
+}
