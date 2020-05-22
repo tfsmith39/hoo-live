@@ -95,15 +95,13 @@ app.get("/auth/twitch/callback",
             res.redirect("/profile");
         });
 
-app.get('/auth/mixer',
-    passport.authenticate('mixer'));
-      
+app.get('/auth/mixer', passport.authenticate('mixer'));
 app.get('/auth/mixer/callback',
-passport.authenticate('mixer', { failureRedirect: '/login' }),
-function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-});
+    passport.authenticate("mixer"),
+        (req, res) => {
+            res.redirect("/profile");
+        });
+
 
 app.get("/user", (req, res) => {
     console.log("getting user data!");
