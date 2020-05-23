@@ -4,7 +4,9 @@
   "description": "A web app for livestream advocates to easily follow their favorite streamers on multiple platorms.",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"nodemon server/index.js\" \"cd client && npm run start\""
+    "start": "cd client && npm run start",
+    "server": "nodemon server/index.js",
+    "dev": "concurrently --kill-others \"npm run start\" \"npm run server\" "
   },
   "repository": {
     "type": "git",
