@@ -5,7 +5,6 @@ const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const TwitchStrategy = require('passport-twitch.js').Strategy;
-const MixerStrategy = require('passport-mixer').Strategy;
 const keys = require('../config');
 const chalk = require('chalk');
 
@@ -55,17 +54,6 @@ passport.use(new TwitchStrategy({
         return cb(null, profile);
     }));
 
-// Mixer Strategy
-passport.use(new MixerStrategy({
-        clientID: keys.MIXER.clientID,
-        clientSecret: keys.MIXER.clientSecret,
-        callbackURL: "/auth/mixer/callback"
-    },
-    (accessToken, refreshToken, profile, cb) => {
-        console.log(chalk.blue(JSON.stringify(profile)));
-        user = { ...profile };
-        return cb(null, profile);
-    }));
 
 const app = express();
 app.use(cors());
@@ -90,13 +78,6 @@ app.get("/auth/google/callback",
 app.get("/auth/twitch", passport.authenticate("twitch.js"));
 app.get("/auth/twitch/callback",
     passport.authenticate("twitch.js"),
-        (req, res) => {
-            res.redirect("/profile");
-        });
-
-app.get('/auth/mixer', passport.authenticate('mixer'));
-app.get('/auth/mixer/callback',
-    passport.authenticate("mixer"),
         (req, res) => {
             res.redirect("/profile");
         });

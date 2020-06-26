@@ -36,7 +36,6 @@
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
-    "passport-mixer": "^1.0.2",
     "passport-twitch.js": "0.0.9",
     "pg": "^8.1.0",
     "react-router-dom": "^5.2.0",
